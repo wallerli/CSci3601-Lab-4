@@ -24,11 +24,11 @@ public class TodoController {
   }
 
   public String getTodo(String id) {
-    FindIterable<Document> jsonUsers
+    FindIterable<Document> jsonTodos
       = todoCollection
       .find(eq("_id", new ObjectId(id)));
 
-    Iterator<Document> iterator = jsonUsers.iterator();
+    Iterator<Document> iterator = jsonTodos.iterator();
     if (iterator.hasNext()) {
       Document todo = iterator.next();
       return todo.toJson();
@@ -43,8 +43,19 @@ public class TodoController {
     Document filterDoc = new Document();
 
     if (queryParams.containsKey("owner")) {
-      int targetOwner = Integer.parseInt(queryParams.get("owner")[0]);
-      filterDoc = filterDoc.append("owner", targetOwner);
+      String targetOwner = (queryParams.get("owner")[0]);
+      Document contentRegQuery = new Document();
+      contentRegQuery.append("$regex", targetOwner);
+      contentRegQuery.append("$options", "i");
+      filterDoc = filterDoc.append("status", contentRegQuery);
+    }
+
+    if (queryParams.containsKey("body")) {
+      String targetBody = (queryParams.get("body")[0]);
+      Document contentRegQuery = new Document();
+      contentRegQuery.append("$regex", targetBody);
+      contentRegQuery.append("$options", "i");
+      filterDoc = filterDoc.append("body", contentRegQuery);
     }
 
     if (queryParams.containsKey("status")) {
@@ -53,6 +64,14 @@ public class TodoController {
       contentRegQuery.append("$regex", targetStatus);
       contentRegQuery.append("$options", "i");
       filterDoc = filterDoc.append("status", contentRegQuery);
+    }
+
+    if (queryParams.containsKey("category")) {
+      String targetCategory = (queryParams.get("category")[0]);
+      Document contentRegQuery = new Document();
+      contentRegQuery.append("$regex", targetCategory);
+      contentRegQuery.append("$options", "i");
+      filterDoc = filterDoc.append("category", contentRegQuery);
     }
 
     //FindIterable comes from mongo, Document comes from Gson
@@ -78,7 +97,7 @@ public class TodoController {
     try {
       todoCollection.insertOne(newTodo);
       ObjectId id = newTodo.getObjectId("_id");
-      System.err.println("Successfully added new user [_id=" + id + ", owner=" + owner + ", status=" + status + " body=" + body + " category=" + category + ']');
+      System.err.println("Successfully added new todo [_id=" + id + ", owner=" + owner + ", status=" + status + " body=" + body + " category=" + category + ']');
       return id.toHexString();
     } catch (MongoException me) {
       me.printStackTrace();
