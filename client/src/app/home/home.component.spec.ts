@@ -28,6 +28,6 @@ describe('Home', () => {
 
   it('displays a link to users', () => {
     fixture.detectChanges();
-    expect(el.textContent).toContain("This is a home page! It doesn't do anything!");
+    expect(el.textContent).toContain('This is a home page! It doesn\'t do anything!');
   });
 });
