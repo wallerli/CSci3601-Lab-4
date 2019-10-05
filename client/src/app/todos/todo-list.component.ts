@@ -35,7 +35,7 @@ export class TodoListComponent implements OnInit {
     return todo._id['$oid'] === this.highlightedID;
   }
 
-  openDialog(): void {
+  /*openDialog(): void {
     const newTodo: Todo = {_id: '', owner: '', status: false, category: '', body: ''};
     const dialogRef = this.dialog.open(AddTodoComponent, {
       width: '500px',
@@ -57,7 +57,7 @@ export class TodoListComponent implements OnInit {
           });
       }
     });
-  }
+  }*/
 
   public updateOwner(newOwner: string): void {
     this.todoOwner = newOwner;
