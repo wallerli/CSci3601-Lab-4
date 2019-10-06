@@ -36,6 +36,7 @@ import {AddUserComponent} from './users/add-user.component';
   ],
   providers: [
     UserListService,
+    TodoListService,
     {provide: APP_BASE_HREF, useValue: '/'},
   ],
   entryComponents: [
