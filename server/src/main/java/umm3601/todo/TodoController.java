@@ -47,7 +47,7 @@ public class TodoController {
       Document contentRegQuery = new Document();
       contentRegQuery.append("$regex", targetOwner);
       contentRegQuery.append("$options", "i");
-      filterDoc = filterDoc.append("status", contentRegQuery);
+      filterDoc = filterDoc.append("owner", contentRegQuery);
     }
 
     if (queryParams.containsKey("body")) {
