@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 // import {AddTodoComponent} from './add-todo.component';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'todo-list-component',
   templateUrl: 'todo-list.component.html',
   styleUrls: ['./todo-list.component.css'],
@@ -19,12 +20,12 @@ export class TodoListComponent implements OnInit {
   // These are the target values used in searching.
   // We should rename them to make that clearer.
   public todoOwner: string;
-  public todoStatus: boolean;
+  public todoStatus: string;
   public todoCategory: string;
   public todoBody: string;
 
   // The ID of the
-  private highlightedID: string = '';
+  private highlightedID = '';
 
   // Inject the TodoListService into this component.
   constructor(public todoListService: TodoListService, public dialog: MatDialog) {
@@ -59,22 +60,17 @@ export class TodoListComponent implements OnInit {
     });
   }*/
 
-  public updateOwner(newOwner: string): void {
-    this.todoOwner = newOwner;
-    this.updateFilter();
-  }
-
-  public updateStatus(newStatus: boolean): void {
+  public updateStatus(newStatus: string): void {
     this.todoStatus = newStatus;
     this.updateFilter();
   }
 
-  public updateCategory(newCategory: boolean): void {
-    this.todoStatus = newCategory;
+  public updateOwner(newOwner: string): void {
+    this.todoStatus = newOwner;
     this.updateFilter();
   }
 
-  public updateBody(newBody: boolean): void {
+  public updateBody(newBody: string): void {
     this.todoStatus = newBody;
     this.updateFilter();
   }
@@ -85,7 +81,6 @@ export class TodoListComponent implements OnInit {
         this.todos,
         this.todoOwner,
         this.todoStatus,
-        this.todoCategory,
         this.todoBody,
       );
   }
@@ -101,8 +96,9 @@ export class TodoListComponent implements OnInit {
     // Subscribe waits until the data is fully downloaded, then
     // performs an action on it (the first lambda)
 
-    const todos: Observable<Todo[]> = this.todoListService.getTodos();
+    const todos: Observable<Todo[]> = this.todoListService.getTodos(this.todoCategory);
     todos.subscribe(
+      // tslint:disable-next-line:no-shadowed-variable
       todos => {
         this.todos = todos;
         this.updateFilter();
@@ -114,7 +110,7 @@ export class TodoListComponent implements OnInit {
   }
 
   loadService(): void {
-    this.todoListService.getTodos(this.todoOwner).subscribe(
+    this.todoListService.getTodos(this.todoCategory).subscribe(
       todos => {
         this.todos = todos;
         this.filteredTodos = this.todos;

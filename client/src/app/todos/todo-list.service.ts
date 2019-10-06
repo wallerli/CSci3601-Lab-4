@@ -15,60 +15,15 @@ export class TodoListService {
   constructor(private http: HttpClient) {
   }
 
-  getTodos(todoCategory?: string): Observable<Todo[]> {
-    this.filterByCategory(todoCategory);
+  getTodos(todoOwner: string): Observable<Todo[]> {
+    this.filterByOwner(todoOwner);
     return this.http.get<Todo[]>(this.todoUrl);
   }
 
-  getTodoById(id: string): Observable<Todo> {
-    return this.http.get<Todo>(this.todoUrl + '/' + id);
-  }
-
-  public filterTodos(todos: Todo[], searchOwner: string, searchStatus: boolean, searchBody: string, searchCategory: string): Todo[] {
-
-    let filteredTodos = todos;
-
-    // Filter by owner
-    if (searchOwner != null) {
-      searchOwner = searchOwner.toLocaleLowerCase();
-
-      filteredTodos = filteredTodos.filter(todo => {
-        return !searchOwner || todo.owner.toLowerCase().indexOf(searchOwner) !== -1;
-      });
-    }
-
-    // Filter by category
-    if (searchCategory != null) {
-      searchCategory = searchCategory.toLocaleLowerCase();
-
-      filteredTodos = filteredTodos.filter(todo => {
-        return !searchCategory || todo.category.toLowerCase().indexOf(searchCategory) !== -1;
-      });
-    }
-
-    // Filter by body
-    if (searchBody != null) {
-      searchBody = searchBody.toLocaleLowerCase();
-
-      filteredTodos = filteredTodos.filter(todo => {
-        return !searchBody || todo.body.toLowerCase().indexOf(searchBody) !== -1;
-      });
-    }
-
-    // Filter by status
-    if (searchStatus != null) {
-      filteredTodos = filteredTodos.filter(todo => {
-        return !searchStatus || todo.status === searchStatus;
-      });
-    }
-
-    return filteredTodos;
-  }
-
-  filterByCategory(todoCategory?: string): void {
+  filterByOwner(todoCategory?: string): void {
     if (!(todoCategory == null || todoCategory === '')) {
       if (this.parameterPresent('category=')) {
-        // there was a previous search by company that we need to clear
+        // there was a previous search by category that we need to clear
         this.removeParameter('category=');
       }
       if (this.todoUrl.indexOf('?') !== -1) {
@@ -89,6 +44,50 @@ export class TodoListService {
         this.todoUrl = this.todoUrl.substring(0, start) + this.todoUrl.substring(end + 1);
       }
     }
+  }
+
+  getTodoById(id: string): Observable<Todo> {
+    return this.http.get<Todo>(this.todoUrl + '/' + id);
+  }
+
+  public filterTodos(todos: Todo[], searchStatus: string, searchBody: string, searchCategory: string): Todo[] {
+
+    let filteredTodos = todos;
+
+    // Filter by status
+    if (searchStatus != null) {
+      searchStatus = searchStatus.toLowerCase();
+
+      if (searchStatus === 'complete') {
+        filteredTodos = filteredTodos.filter((todo: Todo) => {
+          return todo.status;
+        });
+      } else if (searchStatus === 'incomplete') {
+        filteredTodos = filteredTodos.filter((todo: Todo) => {
+          return !todo.status;
+        });
+      }
+    }
+
+    // Filter by category
+    if (searchCategory != null) {
+      searchCategory = searchCategory.toLowerCase();
+
+      filteredTodos = filteredTodos.filter(todo => {
+        return !searchCategory || todo.category.toLowerCase().indexOf(searchCategory) !== -1;
+      });
+    }
+
+    // Filter by content
+    if (searchBody != null) {
+      searchBody = searchBody.toLowerCase();
+
+      filteredTodos = filteredTodos.filter(todo => {
+        return !searchBody || todo.body.toLowerCase().indexOf(searchBody) !== -1;
+      });
+    }
+
+    return filteredTodos;
   }
 
   private parameterPresent(searchParam: string) {
