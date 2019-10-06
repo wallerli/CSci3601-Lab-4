@@ -59,11 +59,11 @@ public class TodoController {
     }
 
     if (queryParams.containsKey("status")) {
-      String targetStatus = (queryParams.get("status")[0]);
-      Document contentRegQuery = new Document();
-      contentRegQuery.append("$regex", targetStatus);
-      contentRegQuery.append("$options", "i");
-      filterDoc = filterDoc.append("status", contentRegQuery);
+      Boolean targetStatus = Boolean.parseBoolean(queryParams.get("status")[0]);
+      filterDoc = filterDoc.append("status", targetStatus);
+//      contentRegQuery.append("$regex", Boolean.parseBoolean(targetStatus));
+//      contentRegQuery.append("$options", "i");
+//      filterDoc = filterDoc.append("status", contentRegQuery);
     }
 
     if (queryParams.containsKey("category")) {

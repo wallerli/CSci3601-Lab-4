@@ -126,7 +126,6 @@ public class TodoControllerSpec {
     assertEquals("Owner should match", "Sam", sam.get("owner"));
     String noJsonResult = todoController.getTodo(new ObjectId().toString());
     assertNull("No owner should match", noJsonResult);
-
   }
 
   @Test
@@ -151,7 +150,6 @@ public class TodoControllerSpec {
   public void getTodoByCategory() {
     Map<String, String[]> argMap = new HashMap<>();
     //Mongo in UserController is doing a regex search so can just take a Java Reg. Expression
-    //This will search the company starting with an I or an F
     argMap.put("category", new String[]{"homework"});
     String jsonResult = todoController.getTodos(argMap);
     BsonArray docs = parseJsonArray(jsonResult);
@@ -163,7 +161,6 @@ public class TodoControllerSpec {
       .collect(Collectors.toList());
     List<String> expectedOwner = Arrays.asList("Chris", "Sam");
     assertEquals("Names should match", expectedOwner, owner);
-
   }
 
 
