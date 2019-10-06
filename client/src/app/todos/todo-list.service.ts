@@ -15,12 +15,18 @@ export class TodoListService {
   constructor(private http: HttpClient) {
   }
 
-  getTodos(todoOwner: string): Observable<Todo[]> {
-    this.filterByOwner(todoOwner);
-    return this.http.get<Todo[]>(this.todoUrl);
+  getTodos(request?: string): Observable<Todo[]> {
+    if (!(request == null || request === '')) {
+      return this.http.get<Todo[]>(this.todoUrl + '?' + request);
+    } else {
+      return this.http.get<Todo[]>(this.todoUrl);
+    }
   }
 
-  filterByOwner(todoCategory?: string): void {
+  // The server filter provided works but we implemented a api request filter
+  // to allow users to input a complete API request
+
+  /*filterByCategory(todoCategory?: string): void {
     if (!(todoCategory == null || todoCategory === '')) {
       if (this.parameterPresent('category=')) {
         // there was a previous search by category that we need to clear
@@ -44,13 +50,13 @@ export class TodoListService {
         this.todoUrl = this.todoUrl.substring(0, start) + this.todoUrl.substring(end + 1);
       }
     }
-  }
+  }*/
 
   getTodoById(id: string): Observable<Todo> {
     return this.http.get<Todo>(this.todoUrl + '/' + id);
   }
 
-  public filterTodos(todos: Todo[], searchStatus: string, searchBody: string, searchCategory: string): Todo[] {
+  public filterTodos(todos: Todo[], searchOwner: string, searchStatus: string, searchBody: string, searchCategory: string): Todo[] {
 
     let filteredTodos = todos;
 

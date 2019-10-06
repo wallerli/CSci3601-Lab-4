@@ -41,18 +41,31 @@
 
         <mat-form-field>
           <input
-            matInput
-            id="todoCategory"
-            #input type="search"
             matTooltip="todo category"
-            placeholder="Refresh category"
-            [(ngModel)]="todoCategory"/>
-          <button mat-button id="apiClearSearch" type="button" *ngIf="todoCategory" matSuffix mat-icon-button
-                  aria-label="clear" (click)="todoCategory='';loadService()">
+            matInput
+            id="todoCategory" #input
+            type="string"
+            placeholder="Filter by category"
+            (input)="updateCategory($event.target.value)">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input
+            matTooltip="owner=...&category=...&status=...&contains=..."
+            matInput
+            id="todoAPI"
+            #input type="search"
+            matTooltip="todo API"
+            placeholder="Refresh API"
+            (input)="updateAPI($event.target.value)"
+            (keydown.enter)="loadService()"
+            [(ngModel)]="todoAPI"/>
+          <button mat-button id="apiClearSearch" type="button" *ngIf="todoAPI" matSuffix mat-icon-button
+                  aria-label="clear" (click)="todoAPI='';loadService()">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
-        <button mat-raised-button id="submit" color="primary" #input type="button" (click)="loadService()">Search
+        <button mat-raised-button id="submit" color="primary" #input type="button" (click)="loadService()">Refresh
         </button>
 
         <mat-accordion *ngIf="todos; else todosError">

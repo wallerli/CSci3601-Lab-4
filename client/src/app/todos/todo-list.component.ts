@@ -19,10 +19,11 @@ export class TodoListComponent implements OnInit {
 
   // These are the target values used in searching.
   // We should rename them to make that clearer.
-  public todoOwner: string;
-  public todoStatus: string;
-  public todoCategory: string;
-  public todoBody: string;
+  private todoOwner: string;
+  private todoStatus: string;
+  private todoCategory: string;
+  private todoBody: string;
+  private todoAPI: string;
 
   // The ID of the
   private highlightedID = '';
@@ -60,18 +61,27 @@ export class TodoListComponent implements OnInit {
     });
   }*/
 
+  public updateAPI(newAPI: string): void {
+    this.todoAPI = newAPI;
+  }
+
+  public updateOwner(newOwner: string): void {
+    this.todoOwner = newOwner;
+    this.updateFilter();
+  }
+
   public updateStatus(newStatus: string): void {
     this.todoStatus = newStatus;
     this.updateFilter();
   }
 
-  public updateOwner(newOwner: string): void {
-    this.todoStatus = newOwner;
+  public updateBody(newBody: string): void {
+    this.todoBody = newBody;
     this.updateFilter();
   }
 
-  public updateBody(newBody: string): void {
-    this.todoStatus = newBody;
+  public updateCategory(newCategory: string): void {
+    this.todoCategory = newCategory;
     this.updateFilter();
   }
 
@@ -82,6 +92,7 @@ export class TodoListComponent implements OnInit {
         this.todoOwner,
         this.todoStatus,
         this.todoBody,
+        this.todoCategory,
       );
   }
 
@@ -96,7 +107,7 @@ export class TodoListComponent implements OnInit {
     // Subscribe waits until the data is fully downloaded, then
     // performs an action on it (the first lambda)
 
-    const todos: Observable<Todo[]> = this.todoListService.getTodos(this.todoCategory);
+    const todos: Observable<Todo[]> = this.todoListService.getTodos();
     todos.subscribe(
       // tslint:disable-next-line:no-shadowed-variable
       todos => {
@@ -110,7 +121,7 @@ export class TodoListComponent implements OnInit {
   }
 
   loadService(): void {
-    this.todoListService.getTodos(this.todoCategory).subscribe(
+    this.todoListService.getTodos(this.todoAPI).subscribe(
       todos => {
         this.todos = todos;
         this.filteredTodos = this.todos;
