@@ -6,19 +6,19 @@
 <div layout-gt-sm="row">
   <div flex-gt-sm="80" flex-offset-gt-sm="10">
     <mat-card>
-      <mat-form-field>
-        <input
-          matTooltip="todo's owner"
-          matInput
-          id="todoOwner" #input
-          type="string"
-          placeholder="Filter by owner"
-          (input)="updateOwner($event.target.value)">
-      </mat-form-field>
-
       <mat-card-title id="todo-list-title">Todos</mat-card-title>
       <mat-divider></mat-divider>
       <mat-card-content>
+        <mat-form-field>
+          <input
+            matTooltip="todo's owner"
+            matInput
+            id="todoOwner" #input
+            type="string"
+            placeholder="Filter by owner"
+            (input)="updateOwner($event.target.value)">
+        </mat-form-field>
+
         <mat-form-field>
           <input
             matTooltip="complete / incomplete"
