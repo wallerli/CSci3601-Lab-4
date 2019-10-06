@@ -162,10 +162,10 @@ public class MongoTodoSpec {
     );
     List<Document> docs = intoList(documents);
     assertEquals("Should be two distinct statuses", 2, docs.size());
-    assertEquals(docs.get(0).get("_id"), false);
-    assertEquals(docs.get(0).get("statusCount"), 1);
-    assertEquals(docs.get(1).get("_id"), true);
-    assertEquals(docs.get(1).get("statusCount"), 2);
+    assertEquals(false, docs.get(0).get("_id"));
+    assertEquals(1, docs.get(0).get("statusCount"));
+    assertEquals(true, docs.get(1).get("_id"));
+    assertEquals(2, docs.get(1).get("statusCount"));
   }
 /*
   @Test
