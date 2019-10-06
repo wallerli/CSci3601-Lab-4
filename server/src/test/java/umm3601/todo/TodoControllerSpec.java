@@ -34,28 +34,34 @@ public class TodoControllerSpec {
     testTodos.add(Document.parse("{\n" +
       "                    owner: \"Chris\",\n" +
       "                    status: true,\n" +
-      "                    body: \"UMM\",\n" +
+      "                    body: \"Project at UMM\",\n" +
       "                    category: \"homework\"\n" +
       "                }"));
     testTodos.add(Document.parse("{\n" +
       "                    owner: \"Pat\",\n" +
       "                    status: false,\n" +
-      "                    body: \"UMN-Morris\",\n" +
+      "                    body: \"I love UMN Morris\",\n" +
       "                    category: \"software design\"\n" +
       "                }"));
     testTodos.add(Document.parse("{\n" +
       "                    owner: \"Jamie\",\n" +
       "                    status: true,\n" +
-      "                    body: \"Hungry\",\n" +
+      "                    body: \"Keep hungry and work hard\",\n" +
       "                    category: \"groceries\"\n" +
+      "                }"));
+    testTodos.add(Document.parse("{\n" +
+      "                    owner: \"Tim\",\n" +
+      "                    status: false,\n" +
+      "                    body: \"Still hungry for knowledge\",\n" +
+      "                    category: \"homework\"\n" +
       "                }"));
 
     samsId = new ObjectId();
     BasicDBObject sam = new BasicDBObject("_id", samsId);
     sam = sam.append("owner", "Sam")
       .append("status", true)
-      .append("category", "homework")
-      .append("body", "software design lab");
+      .append("body", "software design lab")
+      .append("category", "homework");
 
 
     todoDocuments.insertMany(testTodos);
@@ -92,31 +98,14 @@ public class TodoControllerSpec {
     String jsonResult = todoController.getTodos(emptyMap);
     BsonArray docs = parseJsonArray(jsonResult);
 
-    assertEquals("Should be 4 todos", 4, docs.size());
+    assertEquals("Should be 5 todos", 5, docs.size());
     List<String> owners = docs
       .stream()
       .map(umm3601.todo.TodoControllerSpec::getOwner)
       .sorted()
       .collect(Collectors.toList());
-    List<String> expectedOwners = Arrays.asList("Chris", "Jamie", "Pat", "Sam");
+    List<String> expectedOwners = Arrays.asList("Chris", "Jamie", "Pat", "Sam", "Tim");
     assertEquals("Owners should match", expectedOwners, owners);
-  }
-
-  @Test
-  public void getOwnersWhoAreHungry() {
-    Map<String, String[]> argMap = new HashMap<>();
-    argMap.put("body", new String[]{"Hungry"});
-    String jsonResult = todoController.getTodos(argMap);
-    BsonArray docs = parseJsonArray(jsonResult);
-
-    assertEquals("Should be 1 todo", 1, docs.size());
-    List<String> owners = docs
-      .stream()
-      .map(umm3601.todo.TodoControllerSpec::getOwner)
-      .sorted()
-      .collect(Collectors.toList());
-    List<String> expectedNames = Arrays.asList("Jamie");
-    assertEquals("Owners should match", expectedNames, owners);
   }
 
   @Test
@@ -130,11 +119,11 @@ public class TodoControllerSpec {
 
   @Test
   public void addTodoTest() {
-    String newId = todoController.addNewTodo("Brian", false, "umm", "homework");
+    String newId = todoController.addNewTodo("Brian", false, "A umm campus tour", "homework");
 
     assertNotNull("Add new todo should return true when todo is added,", newId);
     Map<String, String[]> argMap = new HashMap<>();
-    argMap.put("body", new String[]{"umm"});
+    argMap.put("body", new String[]{"A umm campus tour"});
     String jsonResult = todoController.getTodos(argMap);
     BsonArray docs = parseJsonArray(jsonResult);
 
@@ -147,21 +136,70 @@ public class TodoControllerSpec {
   }
 
   @Test
+  public void getTodosByBody() {
+    Map<String, String[]> argMap = new HashMap<>();
+    argMap.put("body", new String[]{"hungry"});
+    String jsonResult = todoController.getTodos(argMap);
+    BsonArray docs = parseJsonArray(jsonResult);
+
+    assertEquals("Should be 2 todo", 2, docs.size());
+    List<String> owners = docs
+      .stream()
+      .map(umm3601.todo.TodoControllerSpec::getOwner)
+      .sorted()
+      .collect(Collectors.toList());
+    List<String> expectedNames = Arrays.asList("Jamie", "Tim");
+    assertEquals("Owners should match", expectedNames, owners);
+  }
+
+  @Test
   public void getTodoByCategory() {
     Map<String, String[]> argMap = new HashMap<>();
     //Mongo in UserController is doing a regex search so can just take a Java Reg. Expression
     argMap.put("category", new String[]{"homework"});
     String jsonResult = todoController.getTodos(argMap);
     BsonArray docs = parseJsonArray(jsonResult);
-    assertEquals("Should be 1 todo", 2, docs.size());
+    assertEquals("Should be 3 todos", 3, docs.size());
     List<String> owner = docs
       .stream()
       .map(umm3601.todo.TodoControllerSpec::getOwner)
       .sorted()
       .collect(Collectors.toList());
-    List<String> expectedOwner = Arrays.asList("Chris", "Sam");
+    List<String> expectedOwner = Arrays.asList("Chris", "Sam", "Tim");
     assertEquals("Names should match", expectedOwner, owner);
   }
 
+  @Test
+  public void getTodoByOwner() {
+    Map<String, String[]> argMap = new HashMap<>();
+    //Mongo in UserController is doing a regex search so can just take a Java Reg. Expression
+    argMap.put("owner", new String[]{"Tim"});
+    String jsonResult = todoController.getTodos(argMap);
+    BsonArray docs = parseJsonArray(jsonResult);
+    assertEquals("Should be 1 todo", 1, docs.size());
+    List<String> owner = docs
+      .stream()
+      .map(umm3601.todo.TodoControllerSpec::getOwner)
+      .sorted()
+      .collect(Collectors.toList());
+    List<String> expectedOwner = Collections.singletonList("Tim");
+    assertEquals("Names should match", expectedOwner, owner);
+  }
 
+  @Test
+  public void getTodoByStatus() {
+    Map<String, String[]> argMap = new HashMap<>();
+    //Mongo in UserController is doing a regex search so can just take a Java Reg. Expression
+    argMap.put("status", new String[]{"true"});
+    String jsonResult = todoController.getTodos(argMap);
+    BsonArray docs = parseJsonArray(jsonResult);
+    assertEquals("Should be 3 todo", 3, docs.size());
+    List<String> owner = docs
+      .stream()
+      .map(umm3601.todo.TodoControllerSpec::getOwner)
+      .sorted()
+      .collect(Collectors.toList());
+    List<String> expectedOwner = Arrays.asList("Chris", "Jamie", "Sam");
+    assertEquals("Names should match", expectedOwner, owner);
+  }
 }
