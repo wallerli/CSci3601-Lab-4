@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {Todo} from './todo';
 import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
-// import {CategoryValidator} from './category.validator';
+import {StatusValidator} from './status.validator';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -32,6 +32,11 @@ export class AddTodoComponent implements OnInit {
       {type: 'minLength', message: 'Content must be at least 2 characters'},
       {type: 'maxLength', message: 'Content may not be greater than 500 characters'}
     ],
+
+    'status': [
+      {type: 'unknownStatus', message: 'Status must be either true or false'},
+      {type: 'required', message: 'Status is required'},
+    ],
   };
 
   createForms() {
@@ -53,15 +58,13 @@ export class AddTodoComponent implements OnInit {
         Validators.required
       ])),
 
-      // We don't care much about what is in the company field, so we just add it here as part of the form
-      // without any particular validation.
-      category: new FormControl('category'
-        ),
+      category: new FormControl('category'),
 
-      // We don't need a special validator just for our app here, but there is a default one for email.
-      status: new FormControl('status')
+      status: new FormControl('status', Validators.compose([
+        StatusValidator.validStatus,
+        Validators.required
+      ]))
     });
-
   }
 
   ngOnInit() {
