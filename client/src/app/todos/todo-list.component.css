@@ -7,8 +7,15 @@
   padding-right: 14px;
 }
 
-#addNewUser {
+#addNewTodo {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
+mat-icon {
+  margin-right: 25px;
+}
+
+#refreshIcon, #addIcon {
+  margin-right: 10px;
+}

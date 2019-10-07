@@ -3,9 +3,10 @@ import {TodoListService} from './todo-list.service';
 import {Todo} from './todo';
 import {Observable} from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-// import {AddTodoComponent} from './add-todo.component';
+import {AddTodoComponent} from './add-todo.component';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'todo-list-component',
   templateUrl: 'todo-list.component.html',
   styleUrls: ['./todo-list.component.css'],
@@ -18,32 +19,35 @@ export class TodoListComponent implements OnInit {
 
   // These are the target values used in searching.
   // We should rename them to make that clearer.
-  public todoOwner: string;
-  public todoStatus: boolean;
-  public todoCategory: string;
-  public todoBody: string;
+  private todoOwner: string;
+  private todoStatus: string;
+  private todoCategory: string;
+  private todoBody: string;
+  private todoAPI: string;
 
   // The ID of the
-  private highlightedID: string = '';
+  private highlightedID = '';
 
   // Inject the TodoListService into this component.
   constructor(public todoListService: TodoListService, public dialog: MatDialog) {
 
   }
 
-  isHighlighted(todo: Todo): boolean {
-    return todo._id['$oid'] === this.highlightedID;
-  }
+  /*isHighlighted(to do: To do): boolean {
+    return to do._id['$oid'] === this.highlightedID;
+  }*/
 
-  /*openDialog(): void {
+  openDialog(): void {
     const newTodo: Todo = {_id: '', owner: '', status: false, category: '', body: ''};
     const dialogRef = this.dialog.open(AddTodoComponent, {
       width: '500px',
       data: {todo: newTodo}
     });
 
+    // tslint:disable-next-line:no-shadowed-variable
     dialogRef.afterClosed().subscribe(newTodo => {
       if (newTodo != null) {
+        console.log(newTodo);
         this.todoListService.addNewTodo(newTodo).subscribe(
           result => {
             this.highlightedID = result;
@@ -57,25 +61,29 @@ export class TodoListComponent implements OnInit {
           });
       }
     });
-  }*/
+  }
+
+  public updateAPI(newAPI: string): void {
+    this.todoAPI = newAPI;
+  }
 
   public updateOwner(newOwner: string): void {
     this.todoOwner = newOwner;
     this.updateFilter();
   }
 
-  public updateStatus(newStatus: boolean): void {
+  public updateStatus(newStatus: string): void {
     this.todoStatus = newStatus;
     this.updateFilter();
   }
 
-  public updateCategory(newCategory: boolean): void {
-    this.todoStatus = newCategory;
+  public updateBody(newBody: string): void {
+    this.todoBody = newBody;
     this.updateFilter();
   }
 
-  public updateBody(newBody: boolean): void {
-    this.todoStatus = newBody;
+  public updateCategory(newCategory: string): void {
+    this.todoCategory = newCategory;
     this.updateFilter();
   }
 
@@ -85,8 +93,8 @@ export class TodoListComponent implements OnInit {
         this.todos,
         this.todoOwner,
         this.todoStatus,
-        this.todoCategory,
         this.todoBody,
+        this.todoCategory,
       );
   }
 
@@ -103,6 +111,7 @@ export class TodoListComponent implements OnInit {
 
     const todos: Observable<Todo[]> = this.todoListService.getTodos();
     todos.subscribe(
+      // tslint:disable-next-line:no-shadowed-variable
       todos => {
         this.todos = todos;
         this.updateFilter();
@@ -114,7 +123,7 @@ export class TodoListComponent implements OnInit {
   }
 
   loadService(): void {
-    this.todoListService.getTodos(this.todoOwner).subscribe(
+    this.todoListService.getTodos(this.todoAPI).subscribe(
       todos => {
         this.todos = todos;
         this.filteredTodos = this.todos;

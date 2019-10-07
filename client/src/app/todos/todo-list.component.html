@@ -1,5 +1,8 @@
 <div>
-  <button id="addNewTodo" mat-raised-button (click)="openDialog()">Add New Todo</button>
+  <button id="addNewTodo" mat-raised-button (click)="openDialog()">
+    <mat-icon id="addIcon">add</mat-icon>
+    <a id="addText">Add New Todo</a>
+  </button>
 </div>
 
 
@@ -9,47 +12,133 @@
       <mat-card-title id="todo-list-title">Todos</mat-card-title>
       <mat-divider></mat-divider>
       <mat-card-content>
+
+<!--        TODO-->
+
+<!--        <mat-form-field>-->
+<!--          <mat-label>Filter by status</mat-label>-->
+<!--          <mat-select-->
+<!--            id="todoStatus"-->
+<!--            (selectionChange)="updateStatus($event.value)">-->
+<!--            <mat-option>All</mat-option>-->
+<!--            <mat-option value="incomplete">Incomplete</mat-option>-->
+<!--            <mat-option value="complete">Complete</mat-option>-->
+<!--          </mat-select>-->
+<!--        </mat-form-field>-->
+
         <mat-form-field>
           <input
+            matTooltip="todo's status"
+            matInput
+            id="todoStatus" #input
+            type="string"
+            placeholder="Filter by status"
+            (input)="updateStatus($event.target.value)">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input
+            matTooltip="todo's owner"
             matInput
             id="todoOwner" #input
-            type="text"
+            type="string"
             placeholder="Filter by owner"
             (input)="updateOwner($event.target.value)">
         </mat-form-field>
+
         <mat-form-field>
           <input
+            matTooltip="todo content"
             matInput
-            id="todoStatus" #input
-            type="number"
-            placeholder="Filter by age"
-            (input)="updateStatus($event.target.value)">
+            id="todoBody" #input
+            type="string"
+            placeholder="Filter by content"
+            (input)="updateBody($event.target.value)">
         </mat-form-field>
+
         <mat-form-field>
           <input
+            matTooltip="todo category"
             matInput
-            id="todoCompany"
+            id="todoCategory" #input
+            type="string"
+            placeholder="Filter by category"
+            (input)="updateCategory($event.target.value)">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input
+            matTooltip="owner=...&category=...&status=...&contains=..."
+            matInput
+            id="todoAPI"
             #input type="search"
-            placeholder="Search for category"
-            [(ngModel)]="todoCategory"/>
-          <button mat-button id="categoryClearSearch" type="button" *ngIf="todoCategory" matSuffix mat-icon-button
-                  aria-label="clear" (click)="todoCategory='';loadService()">
+            matTooltip="todo API"
+            placeholder="New API request"
+            (input)="updateAPI($event.target.value)"
+            (keydown.enter)="loadService()"
+            [(ngModel)]="todoAPI"/>
+          <button mat-button id="apiClearSearch" type="button" *ngIf="todoAPI" matSuffix mat-icon-button
+                  aria-label="clear" (click)="todoAPI='';loadService()">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
-        <button mat-raised-button id="submit" color="primary" #input type="button" (click)="loadService()">Submit
+        <button mat-raised-button id="submit" color="primary" #input type="button" (click)="loadService()">
+          <mat-icon id="refreshIcon">cached</mat-icon>
+          <a id="refreshText">Refresh</a>
         </button>
 
         <mat-accordion *ngIf="todos; else todosError">
-<!--          <mat-expansion-panel #elem class="todos" [id]="todo.email" [expanded]="this.isHighlighted(todo)"-->
-<!--                               *ngFor="let todo of this.filteredTodos">-->
-<!--            <mat-expansion-panel-header>-->
-<!--              <mat-panel-title matTooltip="email: {{todo.email}}">{{todo.name}}</mat-panel-title>-->
-<!---->
-<!--            </mat-expansion-panel-header>-->
-<!--            <mat-panel-description>Works for {{todo.company}}</mat-panel-description>-->
-<!--            <mat-panel-description>Age: {{todo.age}} years old</mat-panel-description>-->
-<!--          </mat-expansion-panel>-->
+          <mat-expansion-panel #elem *ngFor="let todo of this.filteredTodos">
+            <mat-expansion-panel-header>
+
+              <mat-panel-title
+                *ngIf="!todo.status && todo.category == 'software design'"
+                style="font-weight: 600;">
+                <mat-icon>code</mat-icon>
+                <div [id]="todo.body">TODO: {{todo.body}}</div>
+              </mat-panel-title>
+
+              <mat-panel-title
+                *ngIf="!todo.status && todo.category == 'homework'"
+                style="font-weight: 600;">
+                <mat-icon>local_library</mat-icon>
+                <div [id]="todo.body">TODO: {{todo.body}}</div>
+              </mat-panel-title>
+
+              <mat-panel-title
+                *ngIf="!todo.status && todo.category == 'groceries'"
+                style="font-weight: 600;">
+                <mat-icon>store_mall_directory</mat-icon>
+                <div [id]="todo.body">TODO: {{todo.body}}</div>
+              </mat-panel-title>
+
+              <mat-panel-title
+                *ngIf="!todo.status && todo.category == 'video games'"
+                style="font-weight: 600;">
+                <mat-icon>games</mat-icon>
+                <div [id]="todo.body">TODO: {{todo.body}}</div>
+              </mat-panel-title>
+
+              <mat-panel-title
+                *ngIf="!todo.status && todo.category !== 'video games' && todo.category !== 'groceries'
+                && todo.category !== 'homework' && todo.category !== 'software design'"
+                style="font-weight: 600;">
+                <mat-icon>assignment</mat-icon>
+                <div [id]="todo.body">TODO: {{todo.body}}</div>
+              </mat-panel-title>
+
+              <mat-panel-title
+                *ngIf="todo.status"
+                style="font-style: italic; color: gray">
+                <mat-icon>done</mat-icon>
+                <div [id]="todo.body">DONE: {{todo.body}}</div>
+              </mat-panel-title>
+
+            </mat-expansion-panel-header>
+            <mat-panel-description>Owned by {{todo.owner}}</mat-panel-description>
+            <mat-panel-description>Category of {{todo.category}}</mat-panel-description>
+
+          </mat-expansion-panel>
         </mat-accordion>
         <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
         <ng-template #todosError>
