@@ -33,9 +33,9 @@ export class TodoListComponent implements OnInit {
 
   }
 
-  isHighlighted(todo: Todo): boolean {
-    return todo._id['$oid'] === this.highlightedID;
-  }
+  /*isHighlighted(to do: To do): boolean {
+    return to do._id['$oid'] === this.highlightedID;
+  }*/
 
   openDialog(): void {
     const newTodo: Todo = {_id: '', owner: '', status: false, category: '', body: ''};
@@ -52,7 +52,6 @@ export class TodoListComponent implements OnInit {
           result => {
             this.highlightedID = result;
             this.refreshTodos();
-            console.log('The newTodo or dialogResult was ' + newTodo);
           },
           err => {
             // This should probably be turned into some sort of meaningful response.

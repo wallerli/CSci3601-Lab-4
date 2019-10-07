@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 
 import {Todo} from './todo';
 import {TodoListService} from './todo-list.service';
+import {Observable} from "rxjs";
 
 describe('Todo list service: ', () => {
   // a small collection of test todos
@@ -67,6 +68,10 @@ describe('Todo list service: ', () => {
     httpTestingController.verify();
   });
 
+  it('contains all the todos', () => {
+    expect(testTodos.length).toBe(5);
+  });
+
   it('getTodos() calls api/todos', () => {
     // Assert that the todos we get from this call to getTodos()
     // should be our set of test todos. Because we're subscribing
@@ -89,7 +94,7 @@ describe('Todo list service: ', () => {
   });
 
   it('getTodoById() calls api/todos/id', () => {
-    const targetTodo: Todo = testTodos[1];
+    const targetTodo: Todo = testTodos[0];
     const targetId: string = targetTodo._id;
     todoListService.getTodoById(targetId).subscribe(
       todo => expect(todo).toBe(targetTodo)
@@ -101,8 +106,17 @@ describe('Todo list service: ', () => {
     req.flush(targetTodo);
   });
 
-  it('contains all the todos', () => {
-    expect(testTodos.length).toBe(5);
+  it('getTodoById() calls api/todos/id with another id', () => {
+    const targetTodo: Todo = testTodos[4];
+    const targetId: string = targetTodo._id;
+    todoListService.getTodoById(targetId).subscribe(
+      todo => expect(todo).toBe(targetTodo)
+    );
+
+    const expectedUrl: string = todoListService.todoUrl + '/' + targetId;
+    const req = httpTestingController.expectOne(expectedUrl);
+    expect(req.request.method).toEqual('GET');
+    req.flush(targetTodo);
   });
 
   it('filterTodos() filters by owner', () => {

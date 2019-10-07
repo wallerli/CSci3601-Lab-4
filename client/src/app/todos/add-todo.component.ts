@@ -34,7 +34,7 @@ export class AddTodoComponent implements OnInit {
     ],
 
     'status': [
-      {type: 'unknownStatus', message: 'Status must be either true or false'},
+      {type: 'unknownStatus', message: 'Status must be true or false'},
       {type: 'required', message: 'Status is required'},
     ],
   };

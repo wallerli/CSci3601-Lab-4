@@ -70,7 +70,16 @@ describe('Todo component', () => {
     });
   }));
 
-  it('can retrieve fifth todo by id', () => {
+  it('can retrieve the first todo by id', () => {
+    todoComponent.setId('cw_id');
+    expect(todoComponent.todo).toBeDefined();
+    expect(todoComponent.todo.category).toBe('software design');
+    expect(todoComponent.todo.owner).toBe('Blanche');
+    expect(todoComponent.todo.status).toBe(false);
+    expect(todoComponent.todo.body).toBe('Create a web page');
+  });
+
+  it('can retrieve the fifth todo by id', () => {
     todoComponent.setId('ro_id');
     expect(todoComponent.todo).toBeDefined();
     expect(todoComponent.todo.category).toBe('groceries');
