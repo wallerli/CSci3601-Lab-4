@@ -36,6 +36,7 @@ describe('Add user component', () => {
     addUserComponent = fixture.componentInstance;
   });
 
+  // TODO
   // Much of the code for validation was created with a lot of exploration and helpful resources including:
   // https://stackoverflow.com/questions/39910017/angular-2-custom-validation-unit-testing
   // https://stackoverflow.com/questions/52046741/angular-testbed-query-by-css-find-the-pseudo-element

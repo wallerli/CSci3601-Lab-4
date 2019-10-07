@@ -181,7 +181,7 @@ describe('User list', () => {
         page.field('ageField').clear();
         page.field('ageField').sendKeys('2');
         expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
-        //clicking somewhere else will make the error appear
+        // clicking somewhere else will make the error appear
         page.field('nameField').click();
         expect(page.getTextFromField('age-error')).toBe('Age must be at least 15');
       });
@@ -190,7 +190,7 @@ describe('User list', () => {
         expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
         page.field('ageField').clear();
         expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
-        //clicking somewhere else will make the error appear
+        // clicking somewhere else will make the error appear
         page.field('nameField').click();
         expect(page.getTextFromField('age-error')).toBe('Age is required');
       });
@@ -202,7 +202,7 @@ describe('User list', () => {
         // tests are run.
         page.field('nameField').sendKeys('A\b');
         expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
-        //clicking somewhere else will make the error appear
+        // clicking somewhere else will make the error appear
         page.field('ageField').click();
         expect(page.getTextFromField('name-error')).toBe('Name is required');
       });
@@ -211,7 +211,7 @@ describe('User list', () => {
         expect(element(by.id('nameField')).isPresent()).toBeTruthy('There should be an name field');
         page.field('nameField').sendKeys('Don@ld Jones');
         expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
-        //clicking somewhere else will make the error appear
+        // clicking somewhere else will make the error appear
         page.field('ageField').click();
         expect(page.getTextFromField('name-error')).toBe('Name must contain only numbers and letters');
       });
@@ -220,7 +220,7 @@ describe('User list', () => {
         expect(element(by.id('nameField')).isPresent()).toBeTruthy('There should be an name field');
         page.field('nameField').sendKeys('abc123');
         expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
-        //clicking somewhere else will make the error appear
+        // clicking somewhere else will make the error appear
         page.field('ageField').click();
         expect(page.getTextFromField('name-error')).toBe('Name has already been taken');
       });
@@ -231,7 +231,7 @@ describe('User list', () => {
         page.field('ageField').sendKeys('30');
         page.field('emailField').sendKeys('donjones.com');
         expect(page.button('confirmAddUserButton').isEnabled()).toBe(false);
-        //clicking somewhere else will make the error appear
+        // clicking somewhere else will make the error appear
         page.field('nameField').click();
         expect(page.getTextFromField('email-error')).toBe('Email must be formatted properly');
       });
