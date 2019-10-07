@@ -8,7 +8,7 @@ import {By} from '@angular/platform-browser';
 import {NgForm} from '@angular/forms';
 
 describe('Add todo component', () => {
-
+// TODO
   let addTodoComponent: AddTodoComponent;
   let calledClose: boolean;
   const mockMatDialogRef = {

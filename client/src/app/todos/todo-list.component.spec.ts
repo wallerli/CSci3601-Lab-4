@@ -179,11 +179,11 @@ describe('Adding a todo', () => {
     });
   }));
 
-  /* it('calls TodoListService.addTodo', () => {
+  // TODO
+   /*it('calls TodoListService.addTodo', () => {
      expect(calledTodo).toBeNull();
      todoList.openDialog();
      expect(calledTodo).toEqual(newTodo);
    });*/
-
 });
 

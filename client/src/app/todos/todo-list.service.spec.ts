@@ -4,7 +4,6 @@ import {HttpClient} from '@angular/common/http';
 
 import {Todo} from './todo';
 import {TodoListService} from './todo-list.service';
-import {Observable} from "rxjs";
 
 describe('Todo list service: ', () => {
   // a small collection of test todos
@@ -72,6 +71,58 @@ describe('Todo list service: ', () => {
     expect(testTodos.length).toBe(5);
   });
 
+  it('contains all the todos', () => {
+    expect(testTodos.length).toBe(5);
+  });
+
+  it('contains a todo owned by \'Workman\'', () => {
+    expect(testTodos.some((todo: Todo) => todo.owner === 'Workman')).toBe(true);
+  });
+
+  it('contain to-dos owned by \'Blanche\'', () => {
+    expect(testTodos.some((todo: Todo) => todo.owner === 'Blanche')).toBe(true);
+  });
+
+  it('doesn\'t contain a todo owned by \'Emma\'', () => {
+    expect(testTodos.some((todo: Todo) => todo.owner === 'Emma')).toBe(false);
+  });
+
+  it('has two to-dos with category software design', function () {
+    expect(testTodos.filter((todo: Todo) => todo.category === 'software design').length).toBe(2);
+  });
+
+  it('has three to-dos with status true', function () {
+    expect(testTodos.filter((todo: Todo) => todo.status === true).length).toBe(3);
+  });
+
+  it('has two to-dos containing \'Mine-craft\'', function () {
+    expect(testTodos.filter((todo: Todo) => todo.body.indexOf('Mine-craft') !== -1).length).toBe(2);
+  });
+
+  it('doesn\'t contain a todo containing \'Computer Science\'', function () {
+    expect(testTodos.some((todo: Todo) => todo.body.indexOf('Computer Science') !== -1)).toBe(false);
+  });
+
+  it('doesn\'t contain a to-do not having an id', function () {
+    expect(testTodos.some((todo: Todo) => todo._id === null)).toBe(false);
+  });
+
+  it('doesn\'t contain a to-do not having an owner', function () {
+    expect(testTodos.some((todo: Todo) => todo.owner === null)).toBe(false);
+  });
+
+  it('doesn\'t contain a to-do not having a status', function () {
+    expect(testTodos.some((todo: Todo) => todo.status === null)).toBe(false);
+  });
+
+  it('doesn\'t contain a to-do not having a body', function () {
+    expect(testTodos.some((todo: Todo) => todo.body === null)).toBe(false);
+  });
+
+  it('doesn\'t contain a to-do not having a category', function () {
+    expect(testTodos.some((todo: Todo) => todo.category === null)).toBe(false);
+  });
+
   it('getTodos() calls api/todos', () => {
     // Assert that the todos we get from this call to getTodos()
     // should be our set of test todos. Because we're subscribing
@@ -90,6 +141,15 @@ describe('Todo list service: ', () => {
     // Specify the content of the response to that request. This
     // triggers the subscribe above, which leads to that check
     // actually being performed.
+    req.flush(testTodos);
+  });
+
+  it('getTodos() calls api/todos with an empty request', () => {
+    todoListService.getTodos(' ').subscribe(
+      todos => expect(todos).toBe(testTodos)
+    );
+    const req = httpTestingController.expectOne(todoListService.todoUrl + '? ');
+    expect(req.request.method).toEqual('GET');
     req.flush(testTodos);
   });
 
