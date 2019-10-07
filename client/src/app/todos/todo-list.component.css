@@ -15,3 +15,7 @@
 mat-icon {
   margin-right: 25px;
 }
+
+#refreshIcon, #addIcon {
+  margin-right: 10px;
+}
