@@ -4,7 +4,6 @@ import {Todo} from './todo';
 import {Observable} from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import {AddTodoComponent} from './add-todo.component';
-// import {AddTodoComponent} from './add-todo.component';
 
 @Component({
   // tslint:disable-next-line:component-selector

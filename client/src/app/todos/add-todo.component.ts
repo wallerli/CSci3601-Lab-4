@@ -36,7 +36,7 @@ export class AddTodoComponent implements OnInit {
 
   createForms() {
 
-    // add todo form validations
+    // add to-do form validations
     this.addTodoForm = this.fb.group({
       // We allow alphanumeric input and limit the length for content.
       owner: new FormControl('owner', Validators.compose([
