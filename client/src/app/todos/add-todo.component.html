@@ -1,0 +1,58 @@
+<!-- example from
+https://github.com/AngularTemplates/angular-forms-and-validations/blob/master/src/app/form-component/form.component.html
+is potentially helpful and contributed to the shaping of this example -->
+<div class="add-todo">
+  <form [formGroup]="addTodoForm">
+    <h2 mat-dialog-title>New Todo</h2>
+    <mat-dialog-content layout="column">
+      <mat-form-field flex>
+        <input matInput #input id="contentField" type="string" placeholder="Content" [(ngModel)]="data.todo.body" formControlName="content"
+               required>
+        <mat-error *ngFor="let validation of add_todo_validation_messages.content">
+          <mat-error class="error-message" id="body-error"
+                     *ngIf="addTodoForm.get('content').hasError(validation.type) && (addTodoForm.get('content').dirty || addTodoForm.get('content').touched)">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field flex>
+        <input matInput #input id="ownerField" type="string" placeholder="Owner" [(ngModel)]="data.todo.owner"
+               formControlName="owner">
+        <mat-error *ngFor="let validation of add_todo_validation_messages.owner">
+          <mat-error class="error-message" id="age-error"
+                     *ngIf="addTodoForm.get('owner').hasError(validation.type) && (addTodoForm.get('owner').dirty || addTodoForm.get('owner').touched)">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field flex>
+        <input matInput #input id="categoryField" type="string" placeholder="Category" [(ngModel)]="data.todo.category"
+               formControlName="category">
+      </mat-form-field>
+      <mat-form-field flex>
+        <input matInput #input id="statusField" type="boolean" placeholder="Status" [(ngModel)]="data.todo.status"
+               formControlName="status">
+<!--        <mat-checkbox #input id="statusField" [(ngModel)]="data.todo.status"-->
+<!--               formControlName="status">-->
+<!--        </mat-checkbox>-->
+
+<!--        <section formControlName="status">-->
+<!--          <label>Status:</label>-->
+<!--          <mat-radio-group [(ngModel)]="data.todo.status">-->
+<!--            <mat-radio-button value=false>Incomplete</mat-radio-button>-->
+<!--            <mat-radio-button value=true>Complete</mat-radio-button>-->
+<!--          </mat-radio-group>-->
+<!--        </section>-->
+
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions layout="row">
+      <!-- [mat-dialog-close]="data.to-do" causes the data.to-do object to be returned when the dialog is closed. -->
+      <button mat-raised-button id="confirmAddTodoButton" [mat-dialog-close]="data.todo" type="button" color="primary"
+              [disabled]="!addTodoForm.valid">Add Todo
+      </button>
+      <!-- [mat-dialog-close]="null" causes null to be returned when the dialog is closed. -->
+      <button mat-raised-button id="exitWithoutAddingButton" [mat-dialog-close]="null" type="button">Cancel</button>
+    </mat-dialog-actions>
+  </form>
+</div>
