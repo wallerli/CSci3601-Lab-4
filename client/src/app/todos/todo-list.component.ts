@@ -3,6 +3,7 @@ import {TodoListService} from './todo-list.service';
 import {Todo} from './todo';
 import {Observable} from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import {AddTodoComponent} from './add-todo.component';
 // import {AddTodoComponent} from './add-todo.component';
 
 @Component({
@@ -37,19 +38,22 @@ export class TodoListComponent implements OnInit {
     return todo._id['$oid'] === this.highlightedID;
   }
 
-  /*openDialog(): void {
+  openDialog(): void {
     const newTodo: Todo = {_id: '', owner: '', status: false, category: '', body: ''};
     const dialogRef = this.dialog.open(AddTodoComponent, {
       width: '500px',
       data: {todo: newTodo}
     });
 
+    // tslint:disable-next-line:no-shadowed-variable
     dialogRef.afterClosed().subscribe(newTodo => {
       if (newTodo != null) {
+        console.log(newTodo);
         this.todoListService.addNewTodo(newTodo).subscribe(
           result => {
             this.highlightedID = result;
             this.refreshTodos();
+            console.log('The newTodo or dialogResult was ' + newTodo);
           },
           err => {
             // This should probably be turned into some sort of meaningful response.
@@ -59,7 +63,7 @@ export class TodoListComponent implements OnInit {
           });
       }
     });
-  }*/
+  }
 
   public updateAPI(newAPI: string): void {
     this.todoAPI = newAPI;

@@ -60,6 +60,15 @@ export class TodoListService {
 
     let filteredTodos = todos;
 
+    // Filter by owner
+    if (searchOwner != null) {
+      searchOwner = searchOwner.toLowerCase();
+
+      filteredTodos = filteredTodos.filter(todo => {
+        return !searchOwner || todo.owner.toLowerCase().indexOf(searchOwner) !== -1;
+      });
+    }
+
     // Filter by status
     if (searchStatus != null) {
       searchStatus = searchStatus.toLowerCase();
@@ -96,7 +105,7 @@ export class TodoListService {
     return filteredTodos;
   }
 
-  private parameterPresent(searchParam: string) {
+  /*private parameterPresent(searchParam: string) {
     return this.todoUrl.indexOf(searchParam) !== -1;
   }
 
@@ -110,7 +119,7 @@ export class TodoListService {
       end = this.todoUrl.indexOf('&', start);
     }
     this.todoUrl = this.todoUrl.substring(0, start) + this.todoUrl.substring(end);
-  }
+  }*/
 
   addNewTodo(newTodo: Todo): Observable<string> {
     const httpOptions = {

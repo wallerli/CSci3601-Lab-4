@@ -46,12 +46,12 @@ public class TodoRequestHandler {
 
     Document newTodo = Document.parse(req.body());
 
-    String name = newTodo.getString("owner");
+    String owner = newTodo.getString("owner");
     boolean status = newTodo.getBoolean("status");
     String body = newTodo.getString("body");
     String category = newTodo.getString("category");
 
-    System.err.println("Adding new user [name=" + name + ", age=" + status + " body=" + body + " category=" + category + ']');
-    return todoController.addNewTodo(name, status, body, category);
+    System.err.println("Adding new todo [name=" + owner + ", status=" + status + " body=" + body + " category=" + category + ']');
+    return todoController.addNewTodo(owner, status, body, category);
   }
 }

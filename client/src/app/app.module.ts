@@ -15,9 +15,9 @@ import {APP_BASE_HREF} from '@angular/common';
 
 import {CustomModule} from './custom.module';
 import {AddUserComponent} from './users/add-user.component';
-import {MatOptionModule} from "@angular/material/core";
-import {MatSelectModule} from "@angular/material/select";
-// import {AddTodoComponent} from './todos/add-todo.component';
+import {MatOptionModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+import {AddTodoComponent} from './todos/add-todo.component';
 
 
 @NgModule({
@@ -36,7 +36,8 @@ import {MatSelectModule} from "@angular/material/select";
     TodoListComponent,
     UserComponent,
     TodoComponent,
-    AddUserComponent
+    AddUserComponent,
+    AddTodoComponent
   ],
   providers: [
     UserListService,
@@ -45,7 +46,7 @@ import {MatSelectModule} from "@angular/material/select";
   ],
   entryComponents: [
     AddUserComponent,
-    // AddTodoComponent,
+    AddTodoComponent,
   ],
   bootstrap: [AppComponent]
 })

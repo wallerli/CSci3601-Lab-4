@@ -1,7 +1,7 @@
 <div>
   <button id="addNewTodo" mat-raised-button (click)="openDialog()">
     <mat-icon id="addIcon">add</mat-icon>
-    <a id="addText">add new Todo</a>
+    <a id="addText">Add New Todo</a>
   </button>
 </div>
 
@@ -103,6 +103,14 @@
                 *ngIf="!todo.status && todo.category == 'video games'"
                 style="font-weight: 600;">
                 <mat-icon>games</mat-icon>
+                <div [id]="todo.body">TODO: {{todo.body}}</div>
+              </mat-panel-title>
+
+              <mat-panel-title
+                *ngIf="!todo.status && todo.category !== 'video games' && todo.category !== 'groceries'
+                && todo.category !== 'homework' && todo.category !== 'software design'"
+                style="font-weight: 600;">
+                <mat-icon>assignment</mat-icon>
                 <div [id]="todo.body">TODO: {{todo.body}}</div>
               </mat-panel-title>
 
