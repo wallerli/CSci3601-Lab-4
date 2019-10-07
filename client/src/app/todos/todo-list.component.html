@@ -13,27 +13,15 @@
       <mat-divider></mat-divider>
       <mat-card-content>
 
-<!--        TODO-->
-
-<!--        <mat-form-field>-->
-<!--          <mat-label>Filter by status</mat-label>-->
-<!--          <mat-select-->
-<!--            id="todoStatus"-->
-<!--            (selectionChange)="updateStatus($event.value)">-->
-<!--            <mat-option>All</mat-option>-->
-<!--            <mat-option value="incomplete">Incomplete</mat-option>-->
-<!--            <mat-option value="complete">Complete</mat-option>-->
-<!--          </mat-select>-->
-<!--        </mat-form-field>-->
-
         <mat-form-field>
-          <input
-            matTooltip="todo's status"
-            matInput
-            id="todoStatus" #input
-            type="string"
-            placeholder="Filter by status"
-            (input)="updateStatus($event.target.value)">
+          <mat-label>Filter by status</mat-label>
+          <mat-select
+            id="todoStatus"
+            (selectionChange)="updateStatus($event.value)">
+            <mat-option>All</mat-option>
+            <mat-option value="incomplete">Incomplete</mat-option>
+            <mat-option value="complete">Complete</mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-form-field>

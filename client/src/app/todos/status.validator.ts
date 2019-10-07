@@ -1,3 +1,4 @@
+/*
 import {FormControl} from '@angular/forms';
 
 export class StatusValidator {
@@ -10,5 +11,6 @@ export class StatusValidator {
     } else {
       return null;
     }
-  }
+  } TODO
 }
+*/

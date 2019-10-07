@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {Todo} from './todo';
 import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
-import {StatusValidator} from './status.validator';
+// import {StatusValidator} from './status.validator';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -33,10 +33,10 @@ export class AddTodoComponent implements OnInit {
       {type: 'maxLength', message: 'Content may not be greater than 500 characters'}
     ],
 
-    'status': [
+    /*'status': [
       {type: 'unknownStatus', message: 'Status must be true or false'},
       {type: 'required', message: 'Status is required'},
-    ],
+    ],*/
   };
 
   createForms() {
@@ -60,10 +60,10 @@ export class AddTodoComponent implements OnInit {
 
       category: new FormControl('category'),
 
-      status: new FormControl('status', Validators.compose([
+      status: new FormControl('status'/*, Validators.compose([
         StatusValidator.validStatus,
         Validators.required
-      ]))
+      ])*/)
     });
   }
 
