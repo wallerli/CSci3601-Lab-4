@@ -34,3 +34,7 @@ How is that being tested?
 `UserRequestHandler` play in the process?
 
     When the server receives a request to add a user, it firstly transmit the request to the user request handler. And when the handler receives it retrieves the names, age, email and company info from the query param and call the controller to add it to the data collection.
+    
+1. What Mongo filters and Angular filters are used? How is the decision made?
+
+    We implemented 4 Angular filters: status, owner, content, and category because it is easy for users to add separate filters at the client side. And we also implemented all the 4 filters with Mongo, but the way to use them is to input a complete API. The reason to let user input a complete API when calling the Mongo's filter is that the Mongo is efficient to return elements with an API, and it is helpful to support API filtering if some user always use the same kind of filter combinations. 
