@@ -23,7 +23,7 @@ Why and how are we using them?
 
 1. What does `UserControllerSpec.clearAndPopulateDb` do?
 
-    The clear and populate DB method generates a virtual data base only for testing, so we are able to not to test our functionality on the real data before each tests, which makes each tests begin with the same environment avoids the risk of compromising the real data.
+    The clear and populate DB method generates a virtual data base for testing, so we are able to not to test our functionality on the real data before each tests, which makes each tests begin with the same environment avoids the risk of compromising the real data.
 
 1. What's being tested in `UserControllerSpec.getUsersWhoAre37()`?
 How is that being tested?
@@ -37,4 +37,6 @@ How is that being tested?
     
 1. What Mongo filters and Angular filters are used? How is the decision made?
 
-    We implemented 4 Angular filters: status, owner, content, and category because it is easy for users to add separate filters at the client side. And we also implemented all the 4 filters with Mongo, but the way to use them is to input a complete API. The reason to let user input a complete API when calling the Mongo's filter is that Mongo is efficient to return elements with an API, and it is helpful to support API filtering if some users always use the same kind of filter combinations. An automated program can also utilize the API filter to display elements for users from the Mongo.
+    We implemented 4 Angular filters: status, owner, content, and category because it is efficient for users to add separate filters at the client side after the client have received all the elements. 
+    
+    We also implemented all the 4 filters with Mongo (status, owner, content, and category), but the way to use them is to input a complete API. The reason to let user input a complete API when calling the Mongo's filter is that Mongo is efficient to return elements with an API, and it is helpful to support API filtering if some users always use the same kind of filter combinations. An automated program can also utilize the API filter to display elements for users.
