@@ -23,7 +23,7 @@ Why and how are we using them?
 
 1. What does `UserControllerSpec.clearAndPopulateDb` do?
 
-    The clear and populate DB generates a virtual data base only for testing, so we are able to not to test our functionality on the real data, which avoids the risk of compromising the real data.
+    The clear and populate DB method generates a virtual data base only for testing, so we are able to not to test our functionality on the real data before each tests, which makes each tests begin with the same environment avoids the risk of compromising the real data.
 
 1. What's being tested in `UserControllerSpec.getUsersWhoAre37()`?
 How is that being tested?
