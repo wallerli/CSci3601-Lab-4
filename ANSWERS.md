@@ -16,5 +16,9 @@ How is that being tested?
 
 ## Our Answers
 
-1. Your answer here...
-1. Another answer...
+1. We transmit a request and a response from the client and the data controller through the server, and a request about the user is finally handled in the user controller. When te server is constructed, it setup the dependencies and build all the data controller and request handlers. And when the user controller is called by the server, they loads data from the database.
+1. We firstly scan the json file read from the data base and search for the user with the id we desired. And then use an iterator to test whether the user is found or not. If the user with the specific id is found, return that user, or otherwise return null.
+1. We firstly filter the query param and search for the user with the age we desired. When a user is found, we append it to a temporary file and when we finish scanning the complete query param, we transfer the temporary file to a new query param and send it back to the client. We use the document objects to store the user we found and generate the query param to be transmitted to the client.
+1. The clear and populate DB generates a virtual data base only for testing, so we are able to not to test our functionality on the real data, which avoids the risk of compromising the real data.
+1. The test calls the user controller to get user with the given age filter. And when the result is returned, it scans the total amount of users found and check if the names are matched.
+1. When the server receives a request to add a user, it firstly transmit the request to the user request handler. And when the handler receives it retrieves the names, age, email and company info from the query param and call the controller to add it to the data collection.
