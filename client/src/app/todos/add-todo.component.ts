@@ -11,10 +11,14 @@ import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 })
 export class AddTodoComponent implements OnInit {
 
+  options: FormGroup;
   addTodoForm: FormGroup;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { todo: Todo }, private fb: FormBuilder) {
+    this.options = fb.group({
+      status: data.todo.status,
+    });
   }
 
   // but this is where the red text that shows up (when there is invalid input) comes from
