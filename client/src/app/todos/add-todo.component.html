@@ -20,7 +20,7 @@ is potentially helpful and contributed to the shaping of this example -->
         <input matInput #input id="contentField" type="string" placeholder="Content" [(ngModel)]="data.todo.body" formControlName="content"
                required>
         <mat-error *ngFor="let validation of add_todo_validation_messages.content">
-          <mat-error class="error-message" id="body-error"
+          <mat-error class="error-message" id="content-error"
                      *ngIf="addTodoForm.get('content').hasError(validation.type) && (addTodoForm.get('content').dirty || addTodoForm.get('content').touched)">
             {{validation.message}}
           </mat-error>
