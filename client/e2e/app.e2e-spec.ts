@@ -7,7 +7,7 @@ describe('angular-spark-lab', () => {
     page = new AppPage();
   });
 
-  it('should load', () => {
+  it('Should load', () => {
     page.navigateTo();
   });
 });

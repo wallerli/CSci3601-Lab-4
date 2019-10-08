@@ -13,27 +13,15 @@
       <mat-divider></mat-divider>
       <mat-card-content>
 
-<!--        TODO-->
-
-<!--        <mat-form-field>-->
-<!--          <mat-label>Filter by status</mat-label>-->
-<!--          <mat-select-->
-<!--            id="todoStatus"-->
-<!--            (selectionChange)="updateStatus($event.value)">-->
-<!--            <mat-option>All</mat-option>-->
-<!--            <mat-option value="incomplete">Incomplete</mat-option>-->
-<!--            <mat-option value="complete">Complete</mat-option>-->
-<!--          </mat-select>-->
-<!--        </mat-form-field>-->
-
         <mat-form-field>
-          <input
-            matTooltip="todo's status"
-            matInput
-            id="todoStatus" #input
-            type="string"
-            placeholder="Filter by status"
-            (input)="updateStatus($event.target.value)">
+          <mat-label>Filter by status</mat-label>
+          <mat-select
+            id="todoStatus"
+            (selectionChange)="updateStatus($event.value)">
+            <mat-option>All</mat-option>
+            <mat-option value="incomplete">Incomplete</mat-option>
+            <mat-option value="complete">Complete</mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-form-field>
@@ -88,7 +76,7 @@
         </button>
 
         <mat-accordion *ngIf="todos; else todosError">
-          <mat-expansion-panel #elem *ngFor="let todo of this.filteredTodos">
+          <mat-expansion-panel #elem class="todos" *ngFor="let todo of this.filteredTodos">
             <mat-expansion-panel-header>
 
               <mat-panel-title
@@ -135,8 +123,8 @@
               </mat-panel-title>
 
             </mat-expansion-panel-header>
-            <mat-panel-description>Owned by {{todo.owner}}</mat-panel-description>
-            <mat-panel-description>Category of {{todo.category}}</mat-panel-description>
+            <mat-panel-description id="ownerInfo">Owned by {{todo.owner}}</mat-panel-description>
+            <mat-panel-description id="categoryInfo">Category of {{todo.category}}</mat-panel-description>
 
           </mat-expansion-panel>
         </mat-accordion>

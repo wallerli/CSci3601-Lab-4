@@ -59,7 +59,7 @@ describe('User list', () => {
   it('Should open the expansion panel and get the company', () => {
     page.navigateTo();
     page.getCompany('DATA');
-    browser.actions().sendKeys(Key.ENTER).perform();
+    // browser.actions().sendKeys(Key.ENTER).perform();
 
     expect(page.getUniqueUser('valerieerickson@datagene.com')).toEqual('Valerie Erickson');
 
@@ -238,4 +238,3 @@ describe('User list', () => {
     });
   });
 });
-

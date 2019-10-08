@@ -179,7 +179,6 @@ describe('Adding a todo', () => {
     });
   }));
 
-  // TODO
    /*it('calls TodoListService.addTodo', () => {
      expect(calledTodo).toBeNull();
      todoList.openDialog();

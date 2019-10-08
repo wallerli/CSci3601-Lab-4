@@ -1,3 +1,5 @@
+// We do not check if an owner is abc123 or not
+/*
 import {FormControl} from '@angular/forms';
 
 export class StatusValidator {
@@ -12,3 +14,4 @@ export class StatusValidator {
     }
   }
 }
+*/

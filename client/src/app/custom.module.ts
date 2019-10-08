@@ -12,8 +12,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatOptionModule, MatSelectModule} from '@angular/material';
 
-import {FlexLayoutModule,} from '@angular/flex-layout';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -25,6 +26,7 @@ const FLEX_LAYOUT_MODULES: any[] = [
 const ANGULAR_MODULES: any[] = [
   BrowserAnimationsModule,
   FormsModule,
+  MatOptionModule,
   ReactiveFormsModule
 ];
 
@@ -36,10 +38,12 @@ const MATERIAL_MODULES: any[] = [
   MatCardModule,
   MatMenuModule,
   MatSidenavModule,
+  MatSelectModule,
   MatInputModule,
   MatExpansionModule,
   MatTooltipModule,
   MatDialogModule,
+  MatOptionModule,
 ];
 
 @NgModule({
