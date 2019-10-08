@@ -174,11 +174,11 @@
  
    ✓ Should open a dialog box when add user button is clicked
 
-###Add User
+### Add User
 
    ✓ Should actually add the user with the information we put in the fields
 
-###Add User (Validation)
+### Add User (Validation)
 
    ✓ Should allow us to put information into the fields of the add user dialog
         
