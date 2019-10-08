@@ -271,7 +271,7 @@ describe('Todo list', () => {
         // clicking somewhere else will make the error appear
         page.field('contentField').click();
         page.field('ownerField').click();
-        expect(page.getTextFromField('body-error')).toBe('Content is required');
+        expect(page.getTextFromField('content-error')).toBe('Content is required');
       });
 
       it('Should show the validation error message about owner being required', () => {
