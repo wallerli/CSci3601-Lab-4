@@ -1,6 +1,7 @@
 ## Test Coverage
 ##### Christian Thielke and Waller Li
 ### angular-spark-lab
+
    ✓ Should load
 
 ## Todo E2E Tests
@@ -103,6 +104,7 @@
   ```
 
 ### Add Todo
+
    ✓ Should add an incomplete classified todo with the information we put in the fields
             
    ✓ Should add a complete unclassified todo with the information given
@@ -129,6 +131,7 @@
    ```
 
 ### Add Todo (Validation)
+
    ✓ Should allow us to put information into the fields of the add todo dialog
   
    ✓ Should show the validation error message about content being required
@@ -152,6 +155,7 @@
 
 ## User  E2E Tests
 ### User list
+
    ✓ should get and highlight Users title attribute 
     
    ✓ should type something in filter name box and check that it returned correct element
@@ -171,9 +175,11 @@
    ✓ Should open a dialog box when add user button is clicked
 
 ###Add User
+
    ✓ Should actually add the user with the information we put in the fields
 
 ###Add User (Validation)
+
    ✓ Should allow us to put information into the fields of the add user dialog
         
    ✓ Should show the validation error message about age being too small if the age is less than 15
