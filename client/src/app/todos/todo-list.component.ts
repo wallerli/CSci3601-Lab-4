@@ -52,6 +52,7 @@ export class TodoListComponent implements OnInit {
           result => {
             this.highlightedID = result;
             this.refreshTodos();
+            // alert('New To-do Created!');
           },
           err => {
             // This should probably be turned into some sort of meaningful response.

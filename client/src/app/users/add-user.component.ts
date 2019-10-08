@@ -1,10 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {User} from './user';
-import {FormControl, Validators, FormGroup, FormBuilder} from "@angular/forms";
-import {NameValidator} from "./name.validator";
+import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
+import {NameValidator} from './name.validator';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'add-user.component',
   templateUrl: 'add-user.component.html',
 })
@@ -66,7 +67,7 @@ export class AddUserComponent implements OnInit {
 
       // We don't need a special validator just for our app here, but there is a default one for email.
       email: new FormControl('email', Validators.email)
-    })
+    });
 
   }
 
