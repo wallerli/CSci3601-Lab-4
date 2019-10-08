@@ -172,7 +172,6 @@ describe('Adding a user', () => {
     });
   }));
 
-  // TODO
  /* it('calls UserListService.addUser', () => {
     expect(calledUser).toBeNull();
     userList.openDialog();
