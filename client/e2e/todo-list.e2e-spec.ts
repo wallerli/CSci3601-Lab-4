@@ -191,7 +191,7 @@ describe('Todo list', () => {
       page.click('addNewTodo');
     });
 
-    it('Should add an incomplete  classified todo with the information we put in the fields', () => {
+    it('Should add an incomplete classified todo with the information we put in the fields', () => {
       page.navigateTo();
       page.click('addNewTodo');
       page.field('contentField').sendKeys('Incomplete Todo');
@@ -290,11 +290,11 @@ describe('Todo list', () => {
         expect(page.button('confirmAddTodoButton').isEnabled()).toBe(false);
         // clicking somewhere else will make the error appear
         page.field('categoryField').click();
-        expect(page.getTextFromField('owner-error')).toBe('Age must be at least 15');
+        expect(page.getTextFromField('owner-error')).toBe('Owner name must be at least 2 characters long');
         page.field('ownerField').sendKeys('aaaaaaaaaaaaaaaaaaaaaaaaaa');
         expect(page.button('confirmAddTodoButton').isEnabled()).toBe(false);
         page.field('categoryField').click();
-        expect(page.getTextFromField('owner-error')).toBe('Age must be at least 15');
+        expect(page.getTextFromField('owner-error')).toBe('Owner name cannot be more than 25 characters long');
       });
 
       it('Should show the validation error message about the unacceptable characters in owner name', () => {
@@ -314,16 +314,12 @@ describe('Todo list', () => {
         // clicking somewhere else will make the error appear
         page.field('categoryField').click();
         expect(page.getTextFromField('content-error')).toBe('Content must be at least 2 characters');
-        page.field('contentField').sendKeys('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
-          'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
-          'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
-          'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
-          'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
-          'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
-          'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
-          'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
-          'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
-          'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+        page.field('contentField').sendKeys('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
+          'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
+          'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
+          'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
+          'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
+          'aaaaaaaaa');
         expect(page.button('confirmAddTodoButton').isEnabled()).toBe(false);
         page.field('categoryField').click();
         expect(page.getTextFromField('content-error')).toBe('Content may not be greater than 500 characters');

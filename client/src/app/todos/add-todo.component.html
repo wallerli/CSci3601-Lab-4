@@ -4,12 +4,18 @@ is potentially helpful and contributed to the shaping of this example -->
 <div class="add-todo">
   <form [formGroup]="addTodoForm">
     <h2 mat-dialog-title>New Todo</h2>
-    <mat-radio-group #input id="statusField" [(ngModel)]="data.todo.status" placeholder="Status" formControlName="status">
-      <mat-radio-button [value]=false>Incomplete</mat-radio-button>
-      <mat-radio-button [value]=true>Complete</mat-radio-button>
-    </mat-radio-group>
+
+    <form [formGroup]="options">
+      <div>
+        <mat-radio-group #input id="statusField" [(ngModel)]="data.todo.status" formControlName="status">
+          <mat-radio-button [value]=false>Incomplete</mat-radio-button>
+          <mat-radio-button [value]=true>Complete</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </form>
 
     <mat-dialog-content layout="column">
+
       <mat-form-field flex id="contentInputBox">
         <input matInput #input id="contentField" type="string" placeholder="Content" [(ngModel)]="data.todo.body" formControlName="content"
                required>
