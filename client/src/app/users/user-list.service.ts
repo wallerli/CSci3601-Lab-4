@@ -39,8 +39,10 @@ export class UserListService {
 
     // Filter by age
     if (searchAge != null) {
+      console.log(searchAge);
       filteredUsers = filteredUsers.filter(user => {
-        return !searchAge || user.age === searchAge;
+        // tslint:disable-next-line:triple-equals
+        return !searchAge || user.age == searchAge;
       });
     }
 
