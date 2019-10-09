@@ -1,0 +1,21 @@
+#title input {
+  width: 16%;
+  min-width: 100px;
+}
+
+#list-title {
+  padding-right: 14px;
+}
+
+#addNewTodo {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+mat-icon {
+  margin-right: 25px;
+}
+
+#refreshIcon, #addIcon {
+  margin-right: 10px;
+}

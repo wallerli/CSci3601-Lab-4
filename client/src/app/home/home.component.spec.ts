@@ -26,8 +26,8 @@ describe('Home', () => {
     el = de.nativeElement;
   });
 
-  it('displays a link to users', () => {
+  it('displays some texts', () => {
     fixture.detectChanges();
-    expect(el.textContent).toContain("This is a home page! It doesn't do anything!");
+    expect(el.textContent).toContain('This is a home page! It doesn\'t do anything!');
   });
 });
